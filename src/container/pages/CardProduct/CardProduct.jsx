@@ -5,9 +5,9 @@ import Counter from './Counter'
 
 class CardProduct extends Component{
 
-    state = {
-        order: 1
-    }
+    // state = {
+    //     order: 1
+    // }
 
    
 

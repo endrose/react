@@ -7,55 +7,57 @@ import reportWebVitals from './reportWebVitals';
 
 import Home from '../src/container/Home/Home'
 // State management
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 
 
+// GlobalState
 const globalState = {
-  totalOrder: 0
+  totalOrder : 0
 }
 
 // Reducer
 const rootReducer = (state = globalState, action) => {
-
-    if (action.type === 'PLUS_ORDER') {
-      return {
-        ...state,
-        totalOrder: state.totalOrder + 1
-      }
-    } else {
-     console.log(action.type)
-    }
-
-    if (action.type === 'MINUS_ORDER') {
-    let totalOrder = 0;
-    
-    if (state.totalOrder > 0) {
-      totalOrder = state.totalOrder -1
-    }
-
+ 
+  if (action.type === 'PLUS_ORDER') {
     return {
-        ...state,
-        totalOrder: totalOrder
+      ...state,
+      totalOrder: state.totalOrder + 1
       }
   }
+
+
+  if (action.type === 'MINUS_ORDER') {
+    let totalOrder = 0
+    if (state.totalOrder > 0) {
+      return {
+        ...state,
+        totalOrder: state.totalOrder -1
+      }
+    }
+   
+    return {
+      ...state,
+      totalOrder: totalOrder
+    }
+  }
+
+
   return state;
 }
 
-// Store Redux
+// Store 
 const storeRedux = createStore(rootReducer);
-console.log(storeRedux.getState())
 
-// Dispaching
-// storeRedux.dispatch({type:'ADD_ORDER'})
-// storeRedux.dispatch({type:'MINUS_ORDER'})
+console.log(
+  storeRedux.getState());
+
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={storeRedux}>
       <Home />
     </Provider>
-      
    
   </React.StrictMode>,
   document.getElementById('root')

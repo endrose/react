@@ -4,14 +4,13 @@ import CardProduct from '../CardProduct/CardProduct'
 import './Product.css'
 
 // React-redux
-import { connect } from 'react-redux'
-
+import {connect} from 'react-redux'
 
 class Product extends Component{
 
-    state = {
-        order: 1
-    }
+    // state = {
+    //     order: 1
+    // }
 
     handleCounterChange = (newValue) => {
         this.setState({
@@ -45,5 +44,4 @@ const mapStateToProps = (state) => {
         order: state.totalOrder
     }
 }
-
-export default connect(mapStateToProps)(Product);
+export default connect(mapStateToProps) (Product);
