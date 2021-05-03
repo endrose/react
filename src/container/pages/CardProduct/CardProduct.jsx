@@ -43,7 +43,10 @@ class CardProduct extends Component{
                 </div>
                 <p className="product-title">Daging ayam bumbu saus padang</p>
                 <p className="product-price">Rp 34.000</p>
-                <Counter onCounterChange={ (value)=> this.counterChange(value)} />
+                {/* menggunakan props */}
+                {/* <Counter onCounterChange={ (value)=> this.counterChange(value)} /> */}
+                {/* sudah menggunakan redux */}
+                <Counter/>
                 </div>
             )
     }

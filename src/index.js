@@ -18,6 +18,8 @@ const globalState = {
 
 // Reducer
 const rootReducer = (state = globalState, action) => {
+
+
  
   if (action.type === 'PLUS_ORDER') {
     return {
@@ -41,9 +43,8 @@ const rootReducer = (state = globalState, action) => {
       totalOrder: totalOrder
     }
   }
+return state
 
-
-  return state;
 }
 
 // Store 

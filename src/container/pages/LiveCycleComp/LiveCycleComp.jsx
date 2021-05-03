@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import './LiveCycleComp.css'
 
+// redux
+import { connect} from 'react-redux'
 
 class LiveCycleComp extends Component{
     constructor(props) {
@@ -64,15 +66,23 @@ class LiveCycleComp extends Component{
    
     
     render() {
-        console.log('render')
+        console.log(this.props)
 
         return (
             <>
                 <p>Halaman LiveCycle Component</p>
                 <button className="btn" onClick={this.changeCount}  >Component Button {this.state.count} </button>
+                <hr />
+                <p>Total Order : {this.props.order}</p>
             </>
         )
     }
 }
 
-export default LiveCycleComp;
+const mapStateToProps = (state) => {
+    return {
+        order : state.totalOrder
+    }
+}
+
+export default connect(mapStateToProps)(LiveCycleComp);

@@ -32,8 +32,11 @@ class Product extends Component{
                         <div className="count">{ this.props.order}</div>
                 </div>
                 </div>
-                <CardProduct onCounterChange={(value)=> this.handleCounterChange(value)} />
-            
+                {/* menggunakan props */}
+                {/* <CardProduct onCounterChange={(value)=> this.handleCounterChange(value)} /> */
+                }
+                {/* sudah menggunakan redux */}
+                <CardProduct/>
             </>
         )
     }
