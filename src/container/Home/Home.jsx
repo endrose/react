@@ -1,5 +1,5 @@
 // libraries
-import React, { Component } from 'react'
+import React, { Component ,createContext} from 'react'
 import { BrowserRouter as Router, Link, Route, } from 'react-router-dom'
 // Pages
 import BlogPost from '../pages/BlogPost/BlogPost';
@@ -9,26 +9,66 @@ import Product from '../pages/Product/Product';
 import YouTubeCompPage from '../pages/YoutubeComp/YoutubeComp';
 // Styling
 import './Home.css'
+// Context
+export const RootContext = createContext();
+const Provider = RootContext.Provider;
+
+
 
 class Home extends Component{
     
-    state = {
-        showComponent : true
-    }
+    // state = {
+    //     showComponent : true
+    // }
 
-    componentDidMount() {
-        setTimeout(() => {
-             this.setState({
-            showComponent: false
-        }) 
-        }, 15000)
+    // componentDidMount() {
+    //     setTimeout(() => {
+    //          this.setState({
+    //         showComponent: false
+    //     }) 
+    //     }, 15000)
        
+    // }
+      state = {
+            totalOrder: 5
+        }
+    
+
+    dispatch = (action) => {
+        if (action.type === 'PLUS_ORDER' ) {
+            return this.setState({
+                totalOrder: this.state.totalOrder + 1
+            })
+        }
+
+        if (action.type === 'MINUS_ORDER') {
+            let totalOrder = 0
+            if (this.state.totalOrder > 0) {
+                return this.setState({
+                    totalOrder: this.state.totalOrder - 1 
+                }, () => {
+                    this.setState({
+                       totalOrder: totalOrder
+                   })
+                })
+            }
+            
+        }
     }
+    
+    
 
     render() {
+       
+        
         return (
-            <>
             <Router>
+                <Provider value={
+                    {
+                        state: this.state,
+                        dispatch :this.dispatch
+                    }
+                }>
                 <div className="container">
                         <div className="navigation">
                             <Link to="/"> Blog Post</Link>
@@ -43,8 +83,8 @@ class Home extends Component{
                         <Route path="/livecycle" component={LiveCycleComp} />
                         <Route path="/youtube-component" component={YouTubeCompPage}/>
                     </div>
-                </Router>
-                </>
+                </Provider>
+            </Router>
         ) 
     }
 }

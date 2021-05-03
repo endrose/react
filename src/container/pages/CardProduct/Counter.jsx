@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { RootContext} from '../../Home/Home'
+
 
 // Redux
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 
 class Counter extends Component{
 
@@ -33,32 +35,43 @@ class Counter extends Component{
 //     }
 
     render() {
-        console.log(this.props)
         return (
-             <div className="counter">
-                    <button className="minus" onClick={this.props.handleMinus} >-</button>
-                    <input type="text" value={this.props.order} />
-                    <button className="plus" onClick={this.props.handlePlus} >+</button>
-                </div>
+            <RootContext.Consumer>
+                {
+                    value => {
+                        return (
+                             <div className="counter">
+                                <button className="minus" onClick={()=>value.dispatch({type:'MINUS_ORDER'}) } >-</button>
+                                <input type="text" value={value.state.totalOrder} />
+                                <button className="plus" onClick={()=> value.dispatch({type: 'PLUS_ORDER'})}  >+</button>
+                            </div>
+                        )
+                    }
+                }
+            </RootContext.Consumer>
+            
         )
     }
 }
 
 
-const mapStateToProps = (state) => {
-    return {
-        order: state.totalOrder
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        handlePlus: () => dispatch({ type: 'PLUS_ORDER' }),
-        handleMinus:()=> dispatch({type: 'MINUS_ORDER'})
-    }
+// const mapStateToProps = (state) => {
+//     return {
+//         order: state.totalOrder
+//     }
+// }
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         handlePlus: () => dispatch({ type: ActionType.PLUS_ORDER }),
+//         handleMinus:()=> dispatch({type: ActionType.MINUS_ORDER})
+//     }
     
-}
+// }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Counter); 
+// export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+/* Context management */
+export default Counter;
+
 
 

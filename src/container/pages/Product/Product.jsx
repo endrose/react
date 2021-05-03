@@ -3,8 +3,15 @@ import CardProduct from '../CardProduct/CardProduct'
 // import CardProduct from '../CardProduct/CardProduct'
 import './Product.css'
 
+
+
+import { RootContext } from '../../Home/Home'
+
+
+
 // React-redux
-import {connect} from 'react-redux'
+// import {connect} from 'react-redux'
+
 
 class Product extends Component{
 
@@ -20,31 +27,43 @@ class Product extends Component{
 
     render() {
         return (
-            <>
-                <p>Ini halaman product</p>
-                <hr/>
-            <div className="header">
-                <div className="logo">
-                        <img src="https://etanee.id/homescreenNew/android-icon-192x192.png" alt="logo"/>
-                    </div>
-                    <div className="trolley">
-                        <img src="https://toppng.com/uploads/preview/shopping-cart-115309972353g1kktalus.png" alt="logo-trolley" />
-                        <div className="count">{ this.props.order}</div>
-                </div>
-                </div>
-                {/* menggunakan props */}
-                {/* <CardProduct onCounterChange={(value)=> this.handleCounterChange(value)} /> */
+            <RootContext.Consumer>
+                {
+                    value => {
+                        return (
+                             <>
+                                <p>Ini halaman product</p>
+                                <hr/>
+                            <div className="header">
+                                <div className="logo">
+                                        <img src="https://etanee.id/homescreenNew/android-icon-192x192.png" alt="logo"/>
+                                    </div>
+                                    <div className="trolley">
+                                        <img src="https://toppng.com/uploads/preview/shopping-cart-115309972353g1kktalus.png" alt="logo-trolley" />
+                                        <div className="count">{ value.state.totalOrder}</div>
+                                </div>
+                                </div>
+                                {/* menggunakan props */}
+                                {/* <CardProduct onCounterChange={(value)=> this.handleCounterChange(value)} /> */
+                                }
+                                {/* sudah menggunakan redux */}
+                                <CardProduct />
+                            </>
+                        )
+                    }
                 }
-                {/* sudah menggunakan redux */}
-                <CardProduct/>
-            </>
+           
+                
+            </RootContext.Consumer>
+                
         )
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        order: state.totalOrder
-    }
-}
-export default connect(mapStateToProps) (Product);
+// const mapStateToProps = (state) => {
+//     return {
+//         order: state.totalOrder
+//     }
+// }
+// export default connect(mapStateToProps)(Product);
+export default Product;

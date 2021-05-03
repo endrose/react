@@ -1,8 +1,11 @@
 import React, { Component } from "react"
 import './LiveCycleComp.css'
 
+
+import {RootContext} from '../../Home/Home'
+
 // redux
-import { connect} from 'react-redux'
+// import { connect} from 'react-redux'
 
 class LiveCycleComp extends Component{
     constructor(props) {
@@ -69,20 +72,31 @@ class LiveCycleComp extends Component{
         console.log(this.props)
 
         return (
-            <>
-                <p>Halaman LiveCycle Component</p>
-                <button className="btn" onClick={this.changeCount}  >Component Button {this.state.count} </button>
-                <hr />
-                <p>Total Order : {this.props.order}</p>
-            </>
+            <RootContext.Consumer>
+                {
+                    value => {
+                        return (
+                            <>
+                                <p>Halaman LiveCycle Component</p>
+                                <button className="btn" onClick={this.changeCount}  >Component Button {this.state.count} </button>
+                                <hr />
+                                <p>Total Order : { value.state.totalOrder}</p>
+                            </>
+                        )
+                    }
+                }
+          
+            </RootContext.Consumer>
+
         )
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        order : state.totalOrder
-    }
-}
+// const mapStateToProps = (state) => {
+//     return {
+//         order : state.totalOrder
+//     }
+// }
 
-export default connect(mapStateToProps)(LiveCycleComp);
+// export default connect(mapStateToProps)(LiveCycleComp);
+export default LiveCycleComp;
