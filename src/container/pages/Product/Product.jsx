@@ -19,11 +19,11 @@ class Product extends Component{
     //     order: 1
     // }
 
-    handleCounterChange = (newValue) => {
-        this.setState({
-            order: newValue
-        })
-    }
+        // handleCounterChange = (newValue) => {
+        //     this.setState({
+        //         order: newValue
+        //     })
+        // }
 
     render() {
         return (

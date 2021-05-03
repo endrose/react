@@ -15,6 +15,8 @@ const Provider = RootContext.Provider;
 
 
 
+
+
 class Home extends Component{
     
     // state = {
@@ -44,14 +46,24 @@ class Home extends Component{
         if (action.type === 'MINUS_ORDER') {
             let totalOrder = 0
             if (this.state.totalOrder > 0) {
-                return this.setState({
-                    totalOrder: this.state.totalOrder - 1 
-                }, () => {
-                    this.setState({
-                       totalOrder: totalOrder
-                   })
-                })
+
+                 return {
+                        ...this.state,
+                        totalOrder: totalOrder
+                    }
+                // return this.setState({
+                //     totalOrder: this.state.totalOrder - 1 
+                // }, () => {
+                //     return {
+                //         ...this.state,
+                //         totalOrder: totalOrder
+                //     }
+                // })
             }
+
+            return this.setState({
+                totalOrder: this.state.totalOrder - 1
+            })
             
         }
     }
