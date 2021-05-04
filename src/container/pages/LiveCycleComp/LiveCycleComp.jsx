@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import './LiveCycleComp.css'
 
 
-import {RootContext} from '../../Home/Home'
 
 // redux
 // import { connect} from 'react-redux'
@@ -70,24 +69,13 @@ class LiveCycleComp extends Component{
     
     render() {
         console.log(this.props)
-
         return (
-            <RootContext.Consumer>
-                {
-                    value => {
-                        return (
-                            <>
-                                <p>Halaman LiveCycle Component</p>
-                                <button className="btn" onClick={this.changeCount}  >Component Button {this.state.count} </button>
-                                <hr />
-                                <p>Total Order : { value.state.totalOrder}</p>
-                            </>
-                        )
-                    }
-                }
-          
-            </RootContext.Consumer>
-
+                <>
+                    <p>Halaman LiveCycle Component</p>
+                    <button className="btn" onClick={this.changeCount}  >Component Button {this.state.count} </button>
+                    <hr />
+                    <p>Total Order :0</p>
+                </>
         )
     }
 }

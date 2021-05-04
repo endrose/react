@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
+import { GlobalConsumer } from '../../../context/context'
 import CardProduct from '../CardProduct/CardProduct'
 // import CardProduct from '../CardProduct/CardProduct'
 import './Product.css'
 
 
 
-import { RootContext } from '../../Home/Home'
 
 
 
@@ -27,34 +27,24 @@ class Product extends Component{
 
     render() {
         return (
-            <RootContext.Consumer>
-                {
-                    value => {
-                        return (
-                             <>
-                                <p>Ini halaman product</p>
-                                <hr/>
-                            <div className="header">
-                                <div className="logo">
-                                        <img src="https://etanee.id/homescreenNew/android-icon-192x192.png" alt="logo"/>
-                                    </div>
-                                    <div className="trolley">
-                                        <img src="https://toppng.com/uploads/preview/shopping-cart-115309972353g1kktalus.png" alt="logo-trolley" />
-                                        <div className="count">{ value.state.totalOrder}</div>
-                                </div>
-                                </div>
-                                {/* menggunakan props */}
-                                {/* <CardProduct onCounterChange={(value)=> this.handleCounterChange(value)} /> */
-                                }
-                                {/* sudah menggunakan redux */}
-                                <CardProduct />
-                            </>
-                        )
-                    }
+            <>
+                <p>Ini halaman product</p>
+                <hr/>
+            <div className="header">
+                <div className="logo">
+                        <img src="https://etanee.id/homescreenNew/android-icon-192x192.png" alt="logo"/>
+                    </div>
+                    <div className="trolley">
+                        <img src="https://toppng.com/uploads/preview/shopping-cart-115309972353g1kktalus.png" alt="logo-trolley" />
+                        <div className="count">{ this.props.state.totalOrder}</div>
+                </div>
+                </div>
+                {/* menggunakan props */}
+                {/* <CardProduct onCounterChange={(value)=> this.handleCounterChange(value)} /> */
                 }
-           
-                
-            </RootContext.Consumer>
+                {/* sudah menggunakan redux */}
+                <CardProduct />
+            </>
                 
         )
     }
@@ -66,4 +56,4 @@ class Product extends Component{
 //     }
 // }
 // export default connect(mapStateToProps)(Product);
-export default Product;
+export default GlobalConsumer(Product);
