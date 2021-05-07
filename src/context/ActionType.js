@@ -3,5 +3,4 @@ const ActionType = {
     MINUS_ORDER: 'MINUS_ORDER'
 }
 
-
-export default ActionType
+export default ActionType;

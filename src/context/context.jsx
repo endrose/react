@@ -1,25 +1,25 @@
-import React, {createContext,Component} from 'react'
-import ActionType from '../context/ActionType'
+import React, { createContext, Component } from 'react'
+import ActionType from './ActionType';
 
-// Provider
-const RootContent = createContext();
-const Provider = RootContent.Provider;
+
+const RootContext = createContext();
+const Provider = RootContext.Provider;
+
 
 const GlobalProvider = (Children) => {
     return (
-
         class Parent extends Component{
             // State
             state = {
-                totalOrder : 10
+                totalOrder: 5
             }
-            // Dispaching
-            dispatch = (action) => {
 
+            //Dispatching
+            dispatch = (action) => {
                 if (action.type === ActionType.PLUS_ORDER) {
                     return this.setState({
-                            totalOrder: this.state.totalOrder + 1
-                        })
+                        totalOrder: this.state.totalOrder + 1
+                    })
                 }
 
                 if (action.type === ActionType.MINUS_ORDER) {
@@ -28,9 +28,13 @@ const GlobalProvider = (Children) => {
                             totalOrder: this.state.totalOrder - 1
                         })
                     }
+                    
                 }
-            return this.state
+
+               return this.state
+                    
             }
+
             render() {
                 return (
                     <Provider value={
@@ -38,7 +42,7 @@ const GlobalProvider = (Children) => {
                             state: this.state,
                             dispatch: this.dispatch
                         }
-                    }>
+                    } >
                         <Children {...this.props} />
                     </Provider>
                 )
@@ -46,10 +50,10 @@ const GlobalProvider = (Children) => {
         }
     )
 }
-export default GlobalProvider;
+export default GlobalProvider
 
-// Consumer
-const Consumer = RootContent.Consumer;
+
+const Consumer = RootContext.Consumer;
 
 export const GlobalConsumer = (Children) => {
     return (
@@ -60,7 +64,7 @@ export const GlobalConsumer = (Children) => {
                         {
                             value => {
                                 return (
-                                    <Children {...this.props} {...value}/>
+                                    <Children {...this.props} {...value} />
                                 )
                             }
                         }
@@ -68,6 +72,5 @@ export const GlobalConsumer = (Children) => {
                 )
             }
         }
-        
     )
 }

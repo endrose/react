@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { GlobalConsumer } from '../../../context/context'
 import CardProduct from '../CardProduct/CardProduct'
 // import CardProduct from '../CardProduct/CardProduct'
 import './Product.css'
@@ -12,6 +11,8 @@ import './Product.css'
 // React-redux
 // import {connect} from 'react-redux'
 
+// Context
+import { GlobalConsumer } from '../../../context/context';
 
 class Product extends Component{
 
@@ -27,6 +28,7 @@ class Product extends Component{
 
     render() {
         return (
+            
             <>
                 <p>Ini halaman product</p>
                 <hr/>

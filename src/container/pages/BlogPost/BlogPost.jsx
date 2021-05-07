@@ -4,18 +4,20 @@ import "./BlogPost.css";
 
 import Post from '../../../components/Post/Post'
 import axios from "axios";
+import API from "../../../services";
 
 class BlogPost extends Component {
 
     state = {
         post: [],
+        comments: [],
         formBlogPost: {
             id: 1,
             title: '',
             body: '',
             userid: 1
        },
-        isUpdate: false
+        isUpdate: false,
     }
 
     handleUpdate = (data) => {
@@ -47,13 +49,27 @@ class BlogPost extends Component {
     }
 
     getPostData = () => {
-        axios.get("http://localhost:3000/posts?_sort=id&_order=desc")
-            .then((res) => {
-                // console.log(res)
+             API.getNewsBlog().then(result => {
                 this.setState({
-               post: res.data
-           })
+                        post: result
+                    })
+            })
+
+        // axios.get("http://localhost:3000/posts?_sort=id&_order=desc")
+        //     .then((res) => {
+        //         // console.log(res)
+        //         this.setState({
+        //        post: res.data
+        //    })
+        // })
+
+        API.getComment().then(result => {
+            this.setState({
+                comments: result
+            })
         })
+
+       
     }
 
 
@@ -131,7 +147,8 @@ class BlogPost extends Component {
                         <label htmlFor="body">Blog Content</label>
                         <textarea cols="30" rows="10" type="text" value={this.state.formBlogPost.body} name="body" onChange={this.changeForm} placeholder="add blog content"  />
                         <button className="btn-submit" onClick={this.handleSubmit} >Simpan</button>
-                    </div>
+                </div>
+               
                 {
                     this.state.post.map((post) => {
                         return <Post key={post.id} data={post} update={this.handleUpdate} goDetail={this.handleDetail}  remove={ this.handleRemove } />
@@ -139,7 +156,13 @@ class BlogPost extends Component {
                     })
 
                 }
-                   
+                    {
+                    this.state.comments.map(comment => {
+                        return (
+                            <p key={comment.id }>{comment.name} - {comment.email}</p>
+                        )
+                    })
+               }    
             </>
         )
     }

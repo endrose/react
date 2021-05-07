@@ -1,6 +1,7 @@
 // libraries
 import React, { Component} from 'react'
 import { BrowserRouter as Router, Link, Route, } from 'react-router-dom'
+import GlobalProvider from '../../context/context';
 // Pages
 import BlogPost from '../pages/BlogPost/BlogPost';
 import DetailPost from '../pages/BlogPost/DetailPost/DetailPost';
@@ -10,7 +11,6 @@ import YouTubeCompPage from '../pages/YoutubeComp/YoutubeComp';
 // Styling
 import './Home.css'
 // Context
-import GlobalProvider from '../../context/context'
 
 class Home extends Component{
     
@@ -33,6 +33,7 @@ class Home extends Component{
        
         
         return (
+            
             <Router>
                 <>
                     <div className="container">

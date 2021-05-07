@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { GlobalConsumer } from "../../../context/context"
 import './LiveCycleComp.css'
 
 
@@ -68,13 +69,12 @@ class LiveCycleComp extends Component{
    
     
     render() {
-        console.log(this.props)
         return (
                 <>
                     <p>Halaman LiveCycle Component</p>
                     <button className="btn" onClick={this.changeCount}  >Component Button {this.state.count} </button>
                     <hr />
-                    <p>Total Order :0</p>
+                <p>Total Order : { this.props.state.totalOrder}</p>
                 </>
         )
     }
@@ -87,4 +87,4 @@ class LiveCycleComp extends Component{
 // }
 
 // export default connect(mapStateToProps)(LiveCycleComp);
-export default LiveCycleComp;
+export default GlobalConsumer(LiveCycleComp);
