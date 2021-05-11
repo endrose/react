@@ -3,7 +3,7 @@ import "./BlogPost.css";
 
 
 import Post from '../../../components/Post/Post'
-import axios from "axios";
+// import axios from "axios";
 import API from "../../../services";
 
 class BlogPost extends Component {
@@ -21,7 +21,7 @@ class BlogPost extends Component {
     }
 
     handleUpdate = (data) => {
-        console.log(data, this.state)
+        // console.log(data, this.state)
         this.setState({
             formBlogPost: data,
             isUpdate: true
@@ -29,11 +29,16 @@ class BlogPost extends Component {
     }
 
     handleRemove = (data) => {
-        console.log(data)
-        axios.delete(`http://localhost:3000/posts/${data}`)
-            .then(() => {
+      
+        API.deletePostBlog(this.state.formBlogPost,data)
+            .then((res) => {
                 this.getPostData()
-            }).catch((err) => console.log(err.message))
+                alert("Post berhasil dihapus!")
+        })
+        // axios.delete(`http://localhost:3000/posts/${data}`)
+        //     .then(() => {
+        //         this.getPostData()
+        //     }).catch((err) => console.log(err.message))
     }
 
     handleDetail = (postId) => {
@@ -49,11 +54,19 @@ class BlogPost extends Component {
     }
 
     getPostData = () => {
-             API.getNewsBlog().then(result => {
-                this.setState({
-                        post: result
-                    })
+       
+        API.getBlogPost().then((res) => {
+            this.setState({
+                post: res
             })
+        })
+
+
+        API.getComments().then((res) => {
+            this.setState({
+                comments: res
+            })
+        })
 
         // axios.get("http://localhost:3000/posts?_sort=id&_order=desc")
         //     .then((res) => {
@@ -63,12 +76,7 @@ class BlogPost extends Component {
         //    })
         // })
 
-        API.getComment().then(result => {
-            this.setState({
-                comments: result
-            })
-        })
-
+  
        
     }
 
@@ -86,46 +94,84 @@ class BlogPost extends Component {
     }
 
     PostDataToAPI = () => {
-        axios.post("http://localhost:3000/posts", this.state.formBlogPost)
+        API.postNewBlog(this.state.formBlogPost)
             .then((res) => {
-                this.getPostData()
-                 this.setState({
+                this.getPostData();
+                this.setState({
                     formBlogPost: {
-                        id: 1,
-                        title: '',
-                        body: '',
-                        userid: 1
-                    },
-                    isUpdate: false
+                            userId: 1,
+                            title: '',
+                            body: '',
+                            id: 1
+                    }
                 })
-                alert(res.statusText)
-            }).catch((err)=> alert(err.message))
+                this.clearForm()
+                alert("Post berhasil ditambahkan !", res)
+        })
+      
+
+
+        // axios.post("http://localhost:3000/posts", this.state.formBlogPost)
+        //     .then((res) => {
+        //         this.getPostData()
+        //          this.setState({
+        //             formBlogPost: {
+        //                 userid: 1,
+        //                 id: 1,
+        //                 title: '',
+        //                 body: ''
+        //             },
+        //             isUpdate: false
+        //         })
+        //         alert(res.statusText)
+        //     }).catch((err)=> alert(err.message))
+        
+        
+       
     }
 
     putDataToAPI = () => {
-        axios.put(`http://localhost:3000/posts/${this.state.formBlogPost.id}`, this.state.formBlogPost).then((res) => {
-            console.log(res)
-            this.getPostData()
-            this.clearForm()
 
-        }).catch((err)=> alert(err.message))
+        API.putPostBlog(this.state.formBlogPost, this.state.formBlogPost.id)
+            .then((res) => {
+                this.getPostData();
+                this.setState({
+                    formBlogPost: {
+                        userId: 1,
+                        title: '',
+                        body: '',
+                        id: 1
+                    }
+                })
+                this.clearForm()
+                alert("Post berhasil di updated!", res)
+        })
+
+    //    axios.put(`http://localhost:3000/posts/${this.state.formBlogPost.id}`, this.state.formBlogPost).then((res) => {
+    //        console.log(res)
+    //         this.getPostData()
+    //         this.clearForm()
+
+    //      }).catch((err)=> alert(err.message))
 
 
-        console.log(this.state.formBlogPost)
+    //     console.log(this.state.formBlogPost)
     }
 
 
     changeForm = (event) => {
-        let formBlogPostNew = { ...this.state.formBlogPost }
-        let timeStamp = new Date().getTime()
+        let formBlogPostNew = { ...this.state.formBlogPost };
+        let timeStamps = new Date().getTime();
         formBlogPostNew[event.target.name] = event.target.value
 
         if (!this.state.isUpdate) {
-             formBlogPostNew["id"] = timeStamp
+            formBlogPostNew["id"] = timeStamps
         }
+
         this.setState({
             formBlogPost: formBlogPostNew
         })
+
         
     }
 
